@@ -15,5 +15,10 @@ export const routes: Routes = [
     {
         path: 'view',
         component: ViewComponent
+    },
+    {
+        path: '',
+        redirectTo: 'codes',
+        pathMatch: 'full'
     }
 ];
