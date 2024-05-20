@@ -1,0 +1,50 @@
+<main class="h-screen">
+    <form>
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">
+                    {{isEdit ? 'Edita el código QR': 'Crea el
+                    código QR'}}
+                </h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">
+                    {{isEdit? 'Actualizar':'Crear'}}
+                </p>
+            </div>
+            <div class="border-b border-gray-900/100 pb-12">
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                        <label class="block text-sm font-medium leading-6 text-gray-900">
+                            Nombre del QR
+                        </label>
+                        <div class="mt-2">
+                            <input type="text" placeholder="Ingrese el nombre" [formControl]="nombreControl">
+                        </div>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-sm font-medium leading-6 text-gray-900">
+                            Enlace
+                        </label>
+                        <div class="mt-2">
+                            <input type="text" placeholder="Ingrese el nombre" [formControl]="enlaceControl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QR -->
+            @if(isEdit){
+            <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+            }
+
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <button routerLink="/codes" type="button" class="text-sm font-semibold leading-6 text-gray-900">
+                    Cancelar
+                </button>
+                <button type="button" (click)="createOrUpdate()"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white">
+                    {{isEdit?'Editar':'Crear'}}
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
