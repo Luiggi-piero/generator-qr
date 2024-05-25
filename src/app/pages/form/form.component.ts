@@ -49,19 +49,26 @@ export class FormComponent implements OnInit {
 
   public createOrUpdate() {
     const codeItem: Code = {
-      id: self.crypto.randomUUID(),
       name: this.nombreControl.value,
       url: this.enlaceControl.value
     }
 
     if (!this.isEdit) {
-      addDoc(this._codeCollection, codeItem);
-      this._router.navigateByUrl('codes');
+      this.create(codeItem);
       return;
     }
 
+    this.update(codeItem);
+  }
+
+  private create(codeItem: Code) {
+    addDoc(this._codeCollection, codeItem)
+      .finally(() => this._router.navigateByUrl('codes'));
+  }
+
+  private update(codeItem: Code) {
     const docRef = doc(this._firestore, 'codes', this.myCode.id);
-    updateDoc(docRef, { ...codeItem });
-    this._router.navigateByUrl('codes');
+    updateDoc(docRef, { ...codeItem })
+      .finally(() => this._router.navigateByUrl('codes'));
   }
 }

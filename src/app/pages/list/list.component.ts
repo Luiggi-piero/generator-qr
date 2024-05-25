@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, getDocs } from '@angular/fire/firestore';
+import { Component, OnInit, inject } from '@angular/core';
+import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { Router, RouterLink } from '@angular/router';
 import { Code } from '../../models/code';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -20,6 +19,7 @@ export class ListComponent implements OnInit {
   public codeList: any[] = [];
 
   async ngOnInit(): Promise<void> {
+    this.codeList = [];
     const documents = await getDocs(this._codeCollection);
     for await (const document of documents.docs) {
       this.codeList.push({ ...document.data(), id: document.id })
